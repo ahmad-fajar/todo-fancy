@@ -2,23 +2,6 @@
 const Task = require('../models/Task');
 const User = require('../models/User')
 
-// create
-// exports.create = (req, res) => {
-//   let task = {
-//     task : req.body.task,
-//     tags : req.body.tags,
-//     isComplete : false
-//   }
-//   Task.create(task)
-//   .then(created => {
-//     console.log(created._id);
-//     res.send(created)
-//   })
-//   .catch(e => {
-//     res.send(e)
-//   })
-// }
-
 exports.createTask = (req, res) => {
   let task = {
     task : req.body.task,

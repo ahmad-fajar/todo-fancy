@@ -11,4 +11,15 @@ let crypt = (pass, salt) => {
   return crypted;
 };
 
+
+// should you need it
+let decrypt = (hashed, salt) => {
+  const decipher = crypto.createDecipher('aes192', salt);
+  let decrypted = decipher.update(hashed, 'hex', 'utf8');
+
+  decrypted += decipher.final('utf8');
+
+  return decrypted;
+}
+
 module.exports = crypt

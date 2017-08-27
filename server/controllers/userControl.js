@@ -3,6 +3,7 @@ const crypt = require('../helpers/crypt');
 const jwt = require('jsonwebtoken');
 const keygen = require('../helpers/keygen');
 const User = require('../models/User');
+require('dotenv').config()
 
 
 // create
@@ -70,4 +71,32 @@ exports.deleteAll = (req, res) => {
   User.remove({})
     .then(deleted => res.send('deleted'))
     .catch(e => res.send(e))
+}
+
+
+// signin
+exports.signin = (req, res) => {
+  console.log('signin')
+  User.findOne({
+    username: req.body.username
+  })
+  .then(userData => {
+    if (!userData) {
+      console.log('wrong user name or password')
+      res.send(null)
+    }
+    let pass = crypt(req.body.password, userData.salt)
+    if (pass == userData.password) {
+      let wrap = {
+        id   : userData.id,
+        role : userData.role
+      }
+      let jwttoken = jwt.sign(wrap, process.env.SECRET)
+      console.log('verified')
+      res.send(jwttoken)
+    } else {
+      console.log('wrong user name or password')
+      res.send(null)
+    }
+  })
 }

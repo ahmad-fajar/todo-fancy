@@ -3,11 +3,10 @@ const cors = require('cors');
 const dotenv = require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const path = require('path');
+
 
 // const url = 'mongodb://localhost/todo-fancy'  //  local
 const url = process.env.MONGO_ATLAS  // atlas
-// const url = 'mongodb://hacktiv8:hacktiv8Super@cluster0-shard-00-00-remkh.mongodb.net:27017,cluster0-shard-00-01-remkh.mongodb.net:27017,cluster0-shard-00-02-remkh.mongodb.net:27017/todo-fancy?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin'
 mongoose.connect(url, () => console.log(' --- database connected ---'))
 
 
