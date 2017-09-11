@@ -1,18 +1,25 @@
 'use strict'
 const Task = require('../models/Task');
-const User = require('../models/User')
+const User = require('../models/User');
+
+const jwt = require('jsonwebtoken');
+require('dotenv').config()
 
 exports.createTask = (req, res) => {
+  console.log(req.body);
   let task = {
     task : req.body.task,
+    desc : req.body.desc,
     tags : req.body.tags,
+    duedate : req.body.duedate,
     isComplete : false
   }
+  let todoToken = jwt.verify(req.body.todoToken, process.env.SECRET)
   Task.create(task)
   .then(created => {
     // res.send(created)
     User.updateOne({
-      _id : req.body.userId
+      _id : todoToken.id
     }, {
       $push : {
         task_list : created._id
@@ -29,6 +36,7 @@ exports.createTask = (req, res) => {
 
 // read
 exports.getAll = (req, res) => {
+  console.log('>>> Requesting all tasks')
   Task.find({})
   .then(tasks => {
     res.send(tasks)
@@ -51,6 +59,8 @@ exports.updateTask = (req, res) => {
   .then(update => {
     let task = {
       task : req.body.task || update.task,
+      desc : req.body.desc || update.desc,
+      duedate : req.body.duedate || update.duedate,
       tags : req.body.tags || update.tags,
       isComplete : req.body.isComplete || false
     }

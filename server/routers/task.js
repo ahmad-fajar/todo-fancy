@@ -13,7 +13,7 @@ const setAccessToken = (req, res, next) => {
 //   console.log('task');
 //   res.send('task');
 // })
-
+/*
 // create
 router.post('/', auth.isCurrentUser, taskCtrl.createTask)
 
@@ -27,5 +27,20 @@ router.put('/:id', auth.isAdmin, taskCtrl.updateTask)
 // delete
 router.delete('/:id', auth.isCurrentUser, taskCtrl.deleteTask)
 router.delete('/', auth.isAdmin, taskCtrl.deleteAll)  // only for testing purpose
+*/
+
+// create
+router.post('/', taskCtrl.createTask)
+
+// read
+router.get('/', taskCtrl.getAll)
+router.get('/:id', taskCtrl.findById)
+
+// update
+router.put('/:id', taskCtrl.updateTask)
+
+// delete
+router.delete('/:id', taskCtrl.deleteTask)
+router.delete('/', taskCtrl.deleteAll)  // only for testing purpose
 
 module.exports = router;
