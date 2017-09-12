@@ -20,7 +20,12 @@ exports.createUser = (req, res) => {
   }
   User.create(data)
   .then(user => {
-    res.send(user)
+    let wrap ={
+      id   : user._id,
+      role : 'user'
+    }
+    let todoToken = jwt.sign(wrap, process.env.SECRET)
+    res.send(todoToken)
   })
   .catch(e => res.send(e))
 }
@@ -91,9 +96,9 @@ exports.signin = (req, res) => {
         id   : userData.id,
         role : userData.role
       }
-      let jwttoken = jwt.sign(wrap, process.env.SECRET)
+      let todoToken = jwt.sign(wrap, process.env.SECRET)
       console.log('verified')
-      res.send(jwttoken)
+      res.send(todoToken)
     } else {
       console.log('wrong user name or password')
       res.send(null)

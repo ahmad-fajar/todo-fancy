@@ -15,7 +15,7 @@ const setAccessToken = (req, res, next) => {
 // })
 
 // create
-// router.post('/', userCtrl.createUser);  // currently not needed. createUser udah dipakai di signup
+router.post('/', userCtrl.createUser);  // currently not needed. createUser udah dipakai di signup
 
 // read
 router.get('/', auth.isAdmin, userCtrl.getAll);

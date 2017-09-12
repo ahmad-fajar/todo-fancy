@@ -59,8 +59,8 @@ exports.login = (req, res) => {
           role     : found.role
         }
         // console.log('wrap', wrap);
-        let jwttoken = jwt.sign(wrap, process.env.SECRET)
-        let data = { username: response.name, jwttoken: jwttoken }
+        let todoToken = jwt.sign(wrap, process.env.SECRET)
+        let data = { username: response.name, todoToken: todoToken }
         res.send(data)
       }
 
