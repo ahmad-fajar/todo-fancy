@@ -105,3 +105,27 @@ exports.signin = (req, res) => {
     }
   })
 }
+
+// auth check
+exports.userAuthCheck = (req, res) => {
+  // console.log('auth check')
+  // console.log(req.headers)
+  jwt.verify(req.headers.todotoken, process.env.SECRET, (err, r) => {
+    if (!err) {
+      console.log('valid token')
+      User.findOne({
+        _id : r.id
+      })
+      .then(user => {
+        if (user) {
+          res.send(true)
+        } else {
+          console.log('invalid token')
+          res.send(null)
+        }
+      })
+    } else {
+      res.send(null)
+    }
+  })
+}

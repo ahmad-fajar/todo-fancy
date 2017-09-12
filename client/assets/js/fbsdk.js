@@ -41,7 +41,7 @@
             })
             .then(responded => {
               // console.log('balikan facebook-login', responded)
-              localStorage.setItem('userToken', responded.data.jwttoken)
+              localStorage.setItem('todoToken', responded.data.todoToken)
             })
           } else {
             console.log('User cancelled login or did not fully authorize.');

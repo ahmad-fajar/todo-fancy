@@ -40,23 +40,14 @@ function FBLogin () {
         }
       })
       .then(responded => {
+        console.log('static-js-loginfb')
         console.log('responded>>>', responded.data)
-        localStorage.setItem('usertoken', responded.data.todoToken)
+        localStorage.setItem('todoToken', responded.data.todoToken)
+        localStorage.removeItem('fbaccesstoken')
+        // window.location.href = 'http://localhost:8080'
       })
     } else {
       console.log('User cancelled login or did not fully authorize.');
     }
   }, {scope: 'public_profile,email,publish_actions,user_posts,user_photos'});
-}
-function FBLogout () {
-  FB.logout(response => {
-    if (response) {
-      console.log('logout response', response)
-      localStorage.removeItem('fbaccesstoken')
-      localStorage.removeItem('usertoken')
-      window.location.reload()
-    } else {
-      console.log('something wrong')
-    }
-  })
 }

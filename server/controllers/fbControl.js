@@ -44,8 +44,8 @@ exports.login = (req, res) => {
             username : created.username,
             role     : created.role
           }
-          let jwttoken = jwt.sign(wrap, process.env.SECRET)
-          let data = { username: response.name, jwttoken: jwttoken }
+          let todoToken = jwt.sign(wrap, process.env.SECRET)
+          let data = { username: response.name, todoToken: todoToken }
           res.send(data)
         })
 

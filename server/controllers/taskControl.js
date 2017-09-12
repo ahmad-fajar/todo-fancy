@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config()
 
 exports.createTask = (req, res) => {
-  console.log(req.body);
   let task = {
     task : req.body.task,
     desc : req.body.desc,
@@ -52,6 +51,18 @@ exports.findById = (req, res) => {
   .catch(e => res.send(e))
 }
 
+exports.getTaskByUserId = (req, res) => {
+  User.findById(req.params.id)
+  .populate('task_list')
+  .exec()
+  .then(list => {
+    let data= []
+    list.task_list.forEach(task => {
+      data.push(task)
+    })
+    res.send(data)
+  })
+}
 
 // update
 exports.updateTask = (req, res) => {

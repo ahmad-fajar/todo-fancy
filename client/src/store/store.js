@@ -19,7 +19,10 @@ export const store = new Vuex.Store({
   mutations: {
     getAllTodo (state) {
       state.todo = []
-      axios.get(url + '/task')
+      let todoToken = localStorage.getItem('todoToken')
+      axios.get(url + '/task/' + '59b79e2f66aa370c7cb9926e', {
+        headers: {todoToken: todoToken}
+      })
       .then(({data}) => {
         this.state.todo = data.reverse()
       })
@@ -30,7 +33,6 @@ export const store = new Vuex.Store({
   actions: {
     newTask (store, payload) {
       payload.todoToken = localStorage.getItem('todoToken')
-      console.log(payload.token)
       axios.post(url + '/task', payload)
       .then(() => {
         this.state.todo.unshift(payload)
